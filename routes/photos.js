@@ -36,7 +36,7 @@ router.get('/:fileName/exifs', function(req, res, next) {
 // GET photo
 router.get('/:fileName', function(req, res, next) {
   filesService.getFile(path + req.params.fileName).then(file => {
-    res.json(file);
+    res.send(file);
   });
 });
 
