@@ -1,57 +1,42 @@
 import express from "express";
-import fs from "fs/promises";
-import exifr from 'exifr';
+import { filesService } from "../services/filesService.js";
 
 const path = "./photos/";
 const router = express.Router();
 
 // GET photos fileNames
 router.get('/', function(req, res, next) {
-  fs.readdir(path).then((files) => {
-    res.json(files.reduce((acc, file) => {
-      // only read jpeg files
-      if (file.endsWith(".jpeg") || file.endsWith(".jpg")) {
-        acc.push( file);
-      }
-      return acc;
-    }, []));
+  filesService.getFiles(path).then(files => {
+    res.json(files);
   });
 });
 
 // GET photos exifs
 router.get('/all', function(req, res, next) {
-  fs.readdir(path).then((files) => {
-    Promise.all(files.reduce((acc, file) => {
-      if (!acc) {
-        acc = [];
-      }
-      // only read jpeg files
-      if (file.endsWith(".jpeg") || file.endsWith(".jpg")) {
-        acc.push(fs.readFile(path + file).then(async content => {
-          const exifs = await exifr.parse(content);
-          return { file, exifs };
-        }));
-        return acc;
-      }
-    }, [])).then(files => {
-      res.json(files);
+  filesService.getFiles(path).then(files => {
+    const promises = files.map(file => {
+      return filesService.getExifs(path + file).then(exifs => {
+        const url = path + file;
+        return {file, url, exifs };
+      })
     });
+    Promise.all(promises).then(exifs => {
+      res.json(exifs);
+    })
   })
 });
 
 // GET photo exifs
 router.get('/:fileName/exifs', function(req, res, next) {
-  fs.readFile(path + req.params.fileName).then(content => {
-    exifr.parse(content).then(exifs => {
-      res.json(exifs);
-    });
-  });
+  filesService.getExifs(path + req.params.fileName).then(exifs => {
+    res.json(exifs);
+  })
 });
 
 // GET photo
 router.get('/:fileName', function(req, res, next) {
-  fs.readFile(path + req.params.fileName).then(content => {
-    res.send(content);
+  filesService.getFile(path + req.params.fileName).then(file => {
+    res.json(file);
   });
 });
 
