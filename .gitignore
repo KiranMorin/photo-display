@@ -137,3 +137,10 @@ photos/*.arw
 photos/*.cr2
 photos/*.cr3
 photos/*.nef
+photos/*/*.jpg
+photos/*/*.jpeg
+photos/*/*.png
+photos/*/*.arw
+photos/*/*.cr2
+photos/*/*.cr3
+photos/*/*.nef

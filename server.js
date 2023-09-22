@@ -8,6 +8,7 @@ import logger from 'morgan';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import photosRouter from './routes/photos.js';
+import configRouter from "./routes/config.js";
 
 const debug = debugLib('your-project-name:server');
 const port = normalizePort(process.env.PORT || '3000');
@@ -28,6 +29,7 @@ app.use(express.static('./public'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/photos', photosRouter);
+app.use('/config', configRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
