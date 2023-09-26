@@ -50,11 +50,12 @@ export const filesService = {
                 path.splice(path.length - 1, 0, size);
                 size = parseInt(size);
     
+
                 try {
                     await fs.access(path.join('/'));
                     return fs.readFile(path.join('/'));
                 } catch (err) {
-                    return this.resizeImage(fileName, size);
+                    return filesService.resizeImage(fileName, size, path);
                 }
             }
             return fs.readFile(fileName);
@@ -70,16 +71,17 @@ export const filesService = {
      * @param {number} size - The desired size of the image.
      * @return {Promise<Buffer>} - A promise that resolves to the resized image buffer.
      */
-    resizeImage: async (fileName, size) => {
+    resizeImage: async (fileName, size, path) => {
         try {
             return fs.readFile(fileName).then(Image => {
                 return sharp(Image).resize(size, size, { fit: "outside" }).toBuffer().then(async buffer => {
+                    const directory = path.slice(0, path.length - 1).join('/')
                     try {
-                        await fs.access(size);
+                        await fs.access(directory);
                     } catch (err) {
-                        fs.mkdir(size);
+                        fs.mkdir(directory);
                     }
-                    fs.writeFile(size, buffer);
+                    fs.writeFile(path.join('/'), buffer);
                     console.log(`file ${fileName} resized`);
                     return buffer;
                 }).catch((err) => {
