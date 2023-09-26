@@ -7,7 +7,10 @@ const router = express.Router();
 // GET photos fileNames
 router.get('/', function(req, res, next) {
   filesService.getFiles(path).then(files => {
-    res.json(files);
+    res.json(files.map(file => {
+      const url = path + file;
+      return {file, url};
+    }));
   }).catch(err => {
     res.status(500).end();
   })
