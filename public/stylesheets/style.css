@@ -6,3 +6,80 @@ body {
 a {
   color: #00B7FF;
 }
+
+#container {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+#list {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+.cellGroup {
+  position: absolute;
+}
+.cellRatio-1-1 {
+  aspect-ratio: 1/1;
+}
+.cellRatio-2-3 {
+  aspect-ratio: 2/3
+}
+.cellRatio-16-9 {
+  aspect-ratio: 16/9
+}
+
+.cellDirection-horizontal.cellSize-1 {
+  height: 100vh;
+}
+.cellDirection-horizontal.cellSize-2 {
+  height: 50vh;
+}
+.cellDirection-horizontal.cellSize-3 {
+  height: 33.33vh;
+}
+.cellDirection-horizontal.cellSize-4 {
+  height: 25vh;
+}
+.cellDirection-horizontal.cellSize-5 {
+  height: 20vh;
+}
+.cellDirection-horizontal.cellSize-6 {
+  height: 16.66vh;
+}
+
+.cellDirection-vertical.cellSize-1 {
+  width: 100vw;
+}
+.cellDirection-vertical.cellSize-2 {
+  width: 50vw;
+}
+.cellDirection-vertical.cellSize-3 {
+  width: 33.33vw;
+}
+.cellDirection-vertical.cellSize-4 {
+  width: 25vw;
+}
+.cellDirection-vertical.cellSize-5 {
+  width: 20vw;
+}
+.cellDirection-vertical.cellSize-6 {
+  width: 16.66vw;
+}
+
+.image-fit-cover {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.image-fit-contain {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.image-fit-fill {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
