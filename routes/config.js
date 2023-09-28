@@ -1,16 +1,18 @@
 import express from "express";
+import { configService } from "../services/configService.js";
 
 const router = express.Router();
 
+// Get the config as JSON
 router.get("/", (req, res) => {
-    res.json({
-        layout: {
-            direction: "horizontal",
-            cellRatio: "1/1", // or 2/3 or 16/9 
-            cellNumber: 3,
-            imageFit: "cover" // or contain or fill
-        }
-    });
-})
+    configService.getConfig().then(config => {
+        res.json(config);
+    })
+});
+
+// Show the config page
+router.get("/edit", (req, res) => {
+    res.render("config");
+});
 
 export default router;
