@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+    color: white;
+}
+#rawJson {
+    white-space: pre;
+}
+
+.group {
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid white;
+    width: fit-content;
+    margin: 10px;
+    margin-top: 0;
+}
+.groupLabel {
+    font-weight: bold;
+}
+
+label {
+    display: block;
+}
+
+input, select {
+    display: block;
+    width: 100px
+}

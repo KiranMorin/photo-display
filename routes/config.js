@@ -15,4 +15,11 @@ router.get("/edit", (req, res) => {
     res.render("config");
 });
 
+// Update the config
+router.post("/", (req, res) => {
+    configService.updateConfig(req.body).then(config => {
+        res.json(config);
+    })
+})
+
 export default router;

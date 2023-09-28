@@ -1,0 +1,39 @@
+extends layout
+
+block header 
+  link(rel='stylesheet', href='/stylesheets/config.css')
+  script(src="/scripts/utils.js")
+  script(src="/scripts/config.js")
+
+block content
+    p#rawJson
+    #form
+        label.groupLabel layout
+        .group
+            label(for="direction") direction
+            select#direction(name="direction")
+                option(value="horizontal") horizontal
+                option(value="vertical") vertical
+            br
+            label(for="cellRatio") cellRatio
+            select#cellRatio(name="cellRatio")
+                option(value="1/1") 1/1
+                option(value="2/3") 2/3
+                option(value="16/9") 16/9
+            br
+            label(for="cellNumber") cellNumber
+            input#cellNumber(type="number", name="cellNumber")
+            br
+            label(for="imageFit") imageFit
+            select#imageFit(name="imageFit")
+                option(value="cover") cover
+                option(value="contain") contain
+                option(value="fill") fill
+        label.groupLabel timings
+        .group 
+            label(for="scrollInterval") scrollInterval
+            input#scrollInterval(type="number", name="scrollInterval")
+            br
+            label(for="scrollSpeed") scrollSpeed
+            input#scrollSpeed(type="number", name="scrollSpeed")
+        button(onClick="sendConfig()") OK

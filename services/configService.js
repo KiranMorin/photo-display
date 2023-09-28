@@ -47,6 +47,8 @@ export const configService = {
      * @return {Promise<void>} A promise that resolves when the configuration is successfully written.
      */
     updateConfig: (config) => {
-        return fs.writeFile("config.json", JSON.stringify(config));
+        return fs.writeFile("config.json", JSON.stringify(config)).then(() => {
+            return Promise.resolve(config);
+        });
     }
 }
