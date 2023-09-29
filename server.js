@@ -4,6 +4,7 @@ import http from 'http';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import FtpSrv from "ftp-srv";
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
@@ -12,6 +13,25 @@ import configRouter from "./routes/config.js";
 
 const debug = debugLib('your-project-name:server');
 const port = normalizePort(process.env.PORT || '3000');
+const ftpPort = normalizePort(process.env.FTP_PORT || '3021');
+
+const ftpServer = new FtpSrv({
+  url: "ftp://0.0.0.0:" + ftpPort
+});
+
+ftpServer.on('login', (username, password) => {
+  if (username === 'admin' && password === 'admin') {
+    debug('Login success');
+    return resolve({ root:"/" });    
+  } else {
+    debug('Login failed');
+    return reject(new errors.GeneralError('Invalid username or password', 401));
+  }
+});
+
+ftpServer.listen().then(() => { 
+  console.log('Ftp server is starting...')
+});
 
 var app = express();
 
