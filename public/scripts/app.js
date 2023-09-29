@@ -22,7 +22,7 @@ const createCell = (photo) => {
     const img = document.createElement('img');
 
     if (photo) {
-        img.src = photo.url + "?size=" + cellWidth;
+        img.src = photo.url + "?size=" + Math.ceil(cellWidth);
         img.alt = photo.file;    
     }
     cell.classList.add('cell');
@@ -91,7 +91,7 @@ const setData = () => {
         if (index === recyclingOffset) {
             element.childNodes.forEach((element, index) => {
                 if (photos[offset]) {
-                    element.childNodes[0].src = photos[offset].url + "?size=" + cellWidth;
+                    element.childNodes[0].src = photos[offset].url + "?size=" + Math.ceil(cellWidth);
                     element.childNodes[0].alt = photos[offset].file;
                 }
 
